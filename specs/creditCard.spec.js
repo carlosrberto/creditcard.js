@@ -1,3 +1,4 @@
+import { advanceTo, clear } from 'jest-date-mock';
 import CreditCard from '../src/creditCard.js';
 
 describe('CreditCard', () => {
@@ -15,23 +16,12 @@ describe('CreditCard', () => {
   };
 
   describe('#validadeExpiryDate', () => {
-    const RealDate = Date;
-
-    function mockDate(...args) {
-      global.Date = class extends RealDate {
-        constructor(...classArgs) {
-          super(...classArgs);
-          return new RealDate(...args);
-        }
-      };
-    }
-
     beforeEach(() => {
-      mockDate(new Date(2017, 6, 10));
+      advanceTo(new Date(2017, 6, 10));
     });
 
     afterEach(() => {
-      global.Date = RealDate;
+      clear();
     });
 
     it('should return true with its a VALID date', () => {
